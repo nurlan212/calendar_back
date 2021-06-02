@@ -19,6 +19,8 @@ router.post('/', async(req, res) => {
 });
 
 router.post('/sessions', async(req, res) => {
+
+  console.log('req.user: ', req.body);
   try{
     let user = await User.findOne({username: req.body.username});
     if(!user) return res.status(401).send({error: "Username or password are wrong!"});
@@ -27,7 +29,7 @@ router.post('/sessions', async(req, res) => {
     if(!isMatch) return res.status(401).send({error: "Username or password are wrong!"});
 
     user.generateToken();
-    await user.save();
+    await user.save({validateBeforeSave: false});
     res.send(user);
   } catch(err) {
     res.status(500).send(err);

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const {nanoid} = require('nanoid');
 
 const Schema = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
@@ -8,12 +9,26 @@ const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    validate: {
+      validator: async value => {
+        const user = await User.findOne({username: value});
+        if (user) return false;
+      },
+      message: "This user is already registered"
+    }
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    validate: {
+      validator: async value => {
+        const user = await User.findOne({email: value});
+        if (user) return false;
+      },
+      message: "This email is already registered"
+    }
   },
   password: {
     type: String,
@@ -22,13 +37,7 @@ const UserSchema = new Schema({
   token: {
     type: String,
     required: true
-  },
-  calendars: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Calendar"
-    }
-  ]
+  }
 });
 
 UserSchema.pre('save', async function(next){

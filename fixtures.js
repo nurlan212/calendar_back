@@ -18,12 +18,12 @@ db.once("open", async()=>{
   }  
 
   const [Asan, Arman, Anar] = await User.create({
-    username: "Асан",
+    username: "Asan",
     password: "123",
     email: "asan@qwe.com",
     token: nanoid()
   }, {
-    username: "Арман",
+    username: "Arman",
     password: "123",
     email: "arman@qwe.com",
     token: nanoid()
