@@ -37,12 +37,18 @@ db.once("open", async()=>{
   await Calendar.create({
     title: "Контрольная работа",
     text: "Решающая контрольная. Данная контрольная без возможности пересдачи. По результатам определится допуск к ESDP",
-    date: new Date('09.09.2021'),
+    date: new Date('2021.9.9'),
     author: Asan._id
   }, {
     title: "Собеседование",
     text: "Собеседование на позицию 'Frontend разработчик'.",
-    date: new Date('06.07.2021'),
+    date: new Date('2021.7.6'),
+    author: Arman._id,
+    shares: [Asan._id, Anar._id]
+  }, {
+    title: "Встреча с друзьями",
+    text: "адрес: Кафе Арлан, Толе би, 52",
+    date: new Date('2021.2.7'),
     author: Arman._id,
     shares: [Asan._id, Anar._id]
   });
